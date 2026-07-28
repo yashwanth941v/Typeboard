@@ -1,21 +1,16 @@
-//
-//  ContentView.swift
-//  Typeboard
-//
-//  Created by Yashwanth V on 29/07/26.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 16) {
+            Text("Typeboard")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+
+            Text("Waiting for hotkey…")
+                .foregroundStyle(.secondary)
         }
-        .padding()
+        .frame(width: 420, height: 220)
     }
 }
 
