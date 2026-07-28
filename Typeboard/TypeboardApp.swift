@@ -13,5 +13,7 @@ struct TypeboardApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowResizability(.contentSize)
+        .defaultSize(width: 420, height: 160)
     }
 }

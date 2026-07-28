@@ -1,16 +1,22 @@
 import SwiftUI
+import KeyboardShortcuts
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Typeboard")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-
-            Text("Waiting for hotkey…")
-                .foregroundStyle(.secondary)
+        Form {
+            Section {
+                LabeledContent("Type Clipboard") {
+                    ShortcutRecorderView(name: .typeClipboard)
+                }
+            } footer: {
+                Text("Click the field, then press the key combination you want to use.")
+            }
         }
-        .frame(width: 420, height: 220)
+        .formStyle(.grouped)
+        .fixedSize()
+        .onGlobalKeyboardShortcut(.typeClipboard, type: .keyUp) {
+            HotkeyManager.shared.trigger()
+        }
     }
 }
 
