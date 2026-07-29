@@ -14,10 +14,14 @@ final class HotkeyManager {
 
     func trigger() {
         guard let text = ClipboardManager.shared.currentText() else {
-            print("Clipboard empty.")
+            ClipboardManager.shared.setStatus("Copy text before using the shortcut.")
             return
         }
 
-        KeyboardTyper.shared.type(text)
+        if KeyboardTyper.shared.type(text) {
+            ClipboardManager.shared.setStatus("Typed \(text.count) characters.")
+        } else {
+            ClipboardManager.shared.setStatus("Allow Accessibility access in System Settings to type text.")
+        }
     }
 }

@@ -53,13 +53,11 @@ struct ShortcutRecorderView: View {
     private func startRecording() {
         isRecording = true
         ignoreNextMouseUp = true
-        KeyboardShortcuts.isPaused = true
     }
 
     private func stopRecording() {
         isRecording = false
         ignoreNextMouseUp = false
-        KeyboardShortcuts.isPaused = false
     }
 
     private func clearShortcut() {
@@ -82,7 +80,9 @@ struct ShortcutRecorderView: View {
             return event
         }
 
-        if event.modifiers.isEmpty {
+        let modifiers = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+
+        if modifiers.isEmpty {
             switch event.specialKey {
             case .delete, .deleteForward, .backspace:
                 clearShortcut()
@@ -100,7 +100,7 @@ struct ShortcutRecorderView: View {
         }
 
         guard
-            !event.modifiers.subtracting([.shift, .function]).isEmpty
+            !modifiers.subtracting([.shift, .function]).isEmpty
                 || isFunctionKey(event.specialKey),
             let newShortcut = KeyboardShortcuts.Shortcut(event: event)
         else {
