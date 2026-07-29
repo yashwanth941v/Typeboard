@@ -2,8 +2,6 @@
 //  HotkeyManager.swift
 //  Typeboard
 //
-//  Created by Yashwanth V on 29/07/26.
-//
 
 import Foundation
 
@@ -18,10 +16,18 @@ final class HotkeyManager {
             return
         }
 
-        if KeyboardTyper.shared.type(text) {
-            ClipboardManager.shared.setStatus("Typed \(text.count) characters.")
-        } else {
-            ClipboardManager.shared.setStatus("Allow Accessibility access in System Settings to type text.")
+        let animated = AppSettings.shared.animateTyping
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            let success = KeyboardTyper.shared.type(text, animated: animated)
+
+            DispatchQueue.main.async {
+                if success {
+                    ClipboardManager.shared.setStatus("Typed \(text.count) characters.")
+                } else {
+                    ClipboardManager.shared.setStatus("Allow Accessibility access in System Settings to type text.")
+                }
+            }
         }
     }
 }

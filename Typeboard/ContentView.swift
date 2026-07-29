@@ -4,6 +4,7 @@ import Combine
 
 struct ContentView: View {
     @StateObject private var clipboard = ClipboardManager.shared
+    @ObservedObject private var settings = AppSettings.shared
     private let clipboardRefreshTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
 
     var body: some View {
@@ -14,6 +15,12 @@ struct ContentView: View {
                 }
             } footer: {
                 Text("Click the field, then press the key combination you want to use.")
+            }
+
+            Section {
+                Toggle("Animate typing", isOn: $settings.animateTyping)
+            } footer: {
+                Text("Simulates human typing speed instead of pasting text instantly.")
             }
 
             Section("Clipboard Preview") {
