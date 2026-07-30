@@ -1,11 +1,7 @@
 import SwiftUI
-import KeyboardShortcuts
-import Combine
 
 struct ContentView: View {
-    @StateObject private var clipboard = ClipboardManager.shared
     @ObservedObject private var settings = AppSettings.shared
-    private let clipboardRefreshTimer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
 
     var body: some View {
         Form {
@@ -14,46 +10,43 @@ struct ContentView: View {
                     ShortcutRecorderView(name: .typeClipboard)
                 }
             } footer: {
-                Text("Click the field, then press the key combination you want to use.")
+                Text("Pastes copied clipboard text. Esc cancels mid-type; Cmd+Z right after undoes the whole block.")
             }
 
             Section {
-                Toggle("Animate typing", isOn: $settings.animateTyping)
-            } footer: {
-                Text("Simulates human typing speed instead of pasting text instantly.")
-            }
-
-            Section("Clipboard Preview") {
-                Group {
-                    if let text = clipboard.text, !text.isEmpty {
-                        Text(text)
-                            .textSelection(.enabled)
-                    } else {
-                        Text("Copy some text to see it here.")
-                            .foregroundStyle(.secondary)
+                Picker("Speed", selection: $settings.typingSpeed) {
+                    ForEach(TypingSpeed.allCases) { speed in
+                        Text(speed.displayName).tag(speed)
                     }
                 }
-                .lineLimit(4)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            } footer: {
+                Text(settings.typingSpeed.footerDescription)
             }
 
             Section {
-                Text(clipboard.status)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                HStack(spacing: 12) {
+                    Image("ProfilePicture")
+                        .resizable()
+                        .frame(width: 32, height: 32)
+                        .clipShape(Circle())
+
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("Built and developed by Yashwanth V")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        Link("yashwanth941v.com", destination: URL(string: "https://yashwanth941v.com/")!)
+                            .font(.caption)
+                            .foregroundStyle(.tint)
+                    }
+
+                    Spacer()
+                }
+                .padding(.vertical, 4)
             }
         }
         .formStyle(.grouped)
-        .frame(width: 420, height: 260)
-        .onAppear {
-            clipboard.refresh()
-        }
-        .onReceive(clipboardRefreshTimer) { _ in
-            clipboard.refresh()
-        }
-        .onGlobalKeyboardShortcut(.typeClipboard, type: .keyUp) {
-            HotkeyManager.shared.trigger()
-        }
+        .frame(width: 420, height: 380)
+        .background(FocusDismissMonitor())
     }
 }
 

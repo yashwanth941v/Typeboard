@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct TypeboardApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
         .windowResizability(.contentSize)
-        .defaultSize(width: 420, height: 300)
+        .defaultSize(width: 420, height: 380)
     }
 }
