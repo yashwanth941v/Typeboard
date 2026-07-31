@@ -4,6 +4,7 @@ Typeboard is a macOS app that types your clipboard content for you with realisti
 
 It was built as a fun side project to explore macOS app development with SwiftUI, hotkey handling, and integrating local and cloud AI models. I've wanted to build apps for a long time, and this is the first macOS app I've built. Feel free to use it and send feedback.
 
+
 ## Download & Install
 
 > **Note:** Typeboard isn't on the Mac App Store and isn't signed with a paid Developer ID certificate, so the first time you open it macOS shows an "Apple could not verify 'Typeboard' is free of malware" warning. It's safe — that warning just means the app wasn't notarized. Bypass it with **either** method below.
@@ -23,6 +24,7 @@ It was built as a fun side project to explore macOS app development with SwiftUI
 4. Enable **Accessibility** for Typeboard in System Settings when prompted — that's what lets it type for you.
 5. Set your hotkeys in the **Typing** tab.
 
+
 ## Features
 
 ### Typing (built)
@@ -40,6 +42,7 @@ It was built as a fun side project to explore macOS app development with SwiftUI
 
 Note: Type Clipboard is fully built and working. The AI features are still under active development.
 
+
 ## How It Works
 
 - Built with SwiftUI and AppKit for macOS (requires macOS 26+).
@@ -47,6 +50,7 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 - Local AI uses the Ollama runtime, downloaded and managed automatically by the app.
 - Cloud AI uses the Gemini API with your own key, stored in your Keychain.
 - Sandboxed, with accessibility permission required to simulate typing.
+
 
 ## Getting Started (from source)
 
@@ -57,11 +61,13 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 
 To package your own DMG for sharing, run `./Scripts/build-dmg.sh` — it produces `Typeboard.dmg` on your Desktop.
 
+
 ## Disclaimer
 
 This is a personal project I built to learn and experiment.
 
 Use it for educational purposes only. Please do not use this app, or its code, to cheat on assignments, exams, or any academic work — that's on you. I am not responsible for how you use this project or any consequences that come from it.
+
 
 ## Connect
 
