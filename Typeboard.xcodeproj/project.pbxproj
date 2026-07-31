@@ -14,9 +14,22 @@
 		0909FCA8301932A000637216 /* Typeboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Typeboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0984CDEA301CE296009C2AD4 /* Exceptions for "Typeboard" folder in "Typeboard" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 0909FCA7301932A000637216 /* Typeboard */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0909FCAA301932A000637216 /* Typeboard */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0984CDEA301CE296009C2AD4 /* Exceptions for "Typeboard" folder in "Typeboard" target */,
+			);
 			path = Typeboard;
 			sourceTree = "<group>";
 		};
@@ -249,7 +262,7 @@
 		0909FCB4301932A200637216 /* Debug configuration for PBXNativeTarget "Typeboard" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Typeboard;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Typeboard/Typeboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -261,11 +274,13 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Typeboard/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yashwanth941v.Typeboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -282,7 +297,7 @@
 		0909FCB5301932A200637216 /* Release configuration for PBXNativeTarget "Typeboard" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Typeboard;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Typeboard/Typeboard.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -294,11 +309,13 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Typeboard/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 26.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = yashwanth941v.Typeboard;
 				PRODUCT_NAME = "$(TARGET_NAME)";

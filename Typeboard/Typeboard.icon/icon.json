@@ -1,0 +1,65 @@
+{
+  "features" : [
+    "refractivity"
+  ],
+  "fill" : "system-light",
+  "groups" : [
+    {
+      "blend-mode" : "normal",
+      "blur-material-specializations" : [
+        {
+          "value" : null
+        },
+        {
+          "appearance" : "tinted",
+          "value" : null
+        }
+      ],
+      "hidden" : false,
+      "layers" : [
+        {
+          "fill" : {
+            "solid" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
+          },
+          "glass" : true,
+          "hidden" : false,
+          "image-name" : "character.cursor.ibeam@4x 2.png",
+          "name" : "character.cursor.ibeam@4x 2"
+        }
+      ],
+      "lighting" : "individual",
+      "refractivity-specializations" : [
+        {
+          "value" : {
+            "depth" : 0,
+            "enabled" : true,
+            "strength" : 0.7700390625
+          }
+        },
+        {
+          "appearance" : "tinted",
+          "value" : {
+            "depth" : 0,
+            "enabled" : true,
+            "strength" : 1
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.3
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
