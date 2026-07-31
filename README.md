@@ -4,10 +4,8 @@ Typeboard is a macOS app that types your clipboard content for you with realisti
 
 It was built as a fun side project to explore macOS app development with SwiftUI, hotkey handling, and integrating local and cloud AI models. I've wanted to build apps for a long time, and this is the first macOS app I've built. Feel free to use it and send feedback.
 
----
-
 <details>
-<summary><strong>Features</strong></summary>
+<summary><h2>Features</h2></summary>
 
 ### Typing (built)
 - **Type Clipboard** — press a hotkey and Typeboard types out whatever you copied, character by character, like a real person.
@@ -26,10 +24,8 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 
 </details>
 
----
-
 <details>
-<summary><strong>How It Works</strong></summary>
+<summary><h2>How It Works</h2></summary>
 
 - Built with SwiftUI and AppKit for macOS (requires macOS 26+).
 - Hotkeys via the [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) library.
@@ -38,8 +34,6 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 - Sandboxed, with accessibility permission required to simulate typing.
 
 </details>
-
----
 
 ## Download & Install
 
@@ -60,10 +54,8 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 4. Enable **Accessibility** for Typeboard in System Settings when prompted — that's what lets it type for you.
 5. Set your hotkeys in the **Typing** tab.
 
----
-
 <details>
-<summary><strong>Getting Started (from source)</strong></summary>
+<summary><h2>Getting Started (from source)</h2></summary>
 
 1. Clone the repo and open `Typeboard.xcodeproj` in Xcode.
 2. Build and run (enable the Accessibility permission when prompted).
@@ -74,15 +66,11 @@ To package your own DMG for sharing, run `./Scripts/build-dmg.sh` — it produce
 
 </details>
 
----
-
 ## Disclaimer
 
 This is a personal project I built to learn and experiment.
 
 Use it for educational purposes only. Please do not use this app, or its code, to cheat on assignments, exams, or any academic work — that's on you. I am not responsible for how you use this project or any consequences that come from it.
-
----
 
 ## Connect
 
