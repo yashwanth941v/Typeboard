@@ -96,6 +96,12 @@ final class AppSettings: ObservableObject {
     @Published var isAIThinking = false
     @Published var aiStatusText = ""
 
+    @Published var isTypingEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(isTypingEnabled, forKey: "isTypingEnabled")
+        }
+    }
+
     @Published var isAIEnabled: Bool {
         didSet {
             UserDefaults.standard.set(isAIEnabled, forKey: "isAIEnabled")
@@ -127,6 +133,8 @@ final class AppSettings: ObservableObject {
         geminiCloudModel = UserDefaults.standard.string(forKey: "geminiCloudModel") ?? GeminiModel.all[0].id
 
         geminiAPIKey = savedKey
+
+        isTypingEnabled = UserDefaults.standard.object(forKey: "isTypingEnabled") as? Bool ?? true
 
         isAIEnabled = UserDefaults.standard.object(forKey: "isAIEnabled") as? Bool ?? true
     }

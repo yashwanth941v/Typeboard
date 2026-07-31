@@ -47,21 +47,31 @@ struct ContentView: View {
     private var typingTab: some View {
         Form {
             Section {
-                LabeledContent("Type Clipboard") {
-                    ShortcutRecorderView(name: .typeClipboard)
-                }
+                Toggle("Enable Typing", isOn: $settings.isTypingEnabled)
             } footer: {
-                Text("Type Clipboard pastes the copied text into whatever you're typing in.")
+                Text(settings.isTypingEnabled
+                     ? "Typing is on. The Type Clipboard shortcut is active."
+                     : "Typing is off. The Type Clipboard shortcut is disabled.")
             }
 
-            Section {
-                Picker("Speed", selection: $settings.typingSpeed) {
-                    ForEach(TypingSpeed.allCases) { speed in
-                        Text(speed.displayName).tag(speed)
+            if settings.isTypingEnabled {
+                Section {
+                    LabeledContent("Type Clipboard") {
+                        ShortcutRecorderView(name: .typeClipboard)
                     }
+                } footer: {
+                    Text("Type Clipboard pastes the copied text into whatever you're typing in.")
                 }
-            } footer: {
-                Text(settings.typingSpeed.footerDescription)
+
+                Section {
+                    Picker("Speed", selection: $settings.typingSpeed) {
+                        ForEach(TypingSpeed.allCases) { speed in
+                            Text(speed.displayName).tag(speed)
+                        }
+                    }
+                } footer: {
+                    Text(settings.typingSpeed.footerDescription)
+                }
             }
         }
         .formStyle(.grouped)
@@ -149,7 +159,12 @@ struct ContentView: View {
     private var aiTab: some View {
         Form {
             Section {
-                Toggle("Enable AI", isOn: $settings.isAIEnabled)
+                Toggle(isOn: $settings.isAIEnabled) {
+                    HStack(spacing: 6) {
+                        Text("Enable AI")
+                        BetaPill()
+                    }
+                }
             } footer: {
                 Text(settings.isAIEnabled
                      ? "AI is on. The Answer with AI shortcut is active."
@@ -338,6 +353,21 @@ struct ContentView: View {
         } catch {
             settings.geminiKeyStatus = .invalid
         }
+    }
+}
+
+private struct BetaPill: View {
+    var body: some View {
+        Text("Beta")
+            .font(.system(size: 9, weight: .medium))
+            .foregroundStyle(.orange)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 2)
+            .background(.orange.opacity(0.15), in: Capsule())
+            .overlay {
+                Capsule()
+                    .strokeBorder(.orange.opacity(0.4), lineWidth: 0.5)
+            }
     }
 }
 

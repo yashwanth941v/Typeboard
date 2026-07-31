@@ -110,8 +110,10 @@ final class TypingController: @unchecked Sendable {
         undoText = nil
         redoText = nil
         syncInputInterceptor()
+        showTypingPill()
         defer {
             isTyping = false
+            hideTypingPill()
             syncInputInterceptor()
         }
 
@@ -218,6 +220,24 @@ final class TypingController: @unchecked Sendable {
         undoText = text
         redoText = nil
         syncInputInterceptor()
+    }
+
+    // MARK: - Typing pill overlay
+
+    nonisolated private func showTypingPill() {
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated {
+                TypingPillWindow.shared.showPill()
+            }
+        }
+    }
+
+    nonisolated private func hideTypingPill() {
+        DispatchQueue.main.async {
+            MainActor.assumeIsolated {
+                TypingPillWindow.shared.hidePill()
+            }
+        }
     }
 
     // MARK: - Timing

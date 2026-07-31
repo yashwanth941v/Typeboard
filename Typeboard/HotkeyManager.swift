@@ -12,6 +12,7 @@ final class HotkeyManager {
     private init() {}
 
     func trigger() {
+        guard AppSettings.shared.isTypingEnabled else { return }
         guard let text = ClipboardManager.shared.currentText() else { return }
 
         let speed = AppSettings.shared.typingSpeed
