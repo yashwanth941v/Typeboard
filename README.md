@@ -6,7 +6,8 @@ It was built as a fun side project to explore macOS app development with SwiftUI
 
 ---
 
-## Features
+<details>
+<summary><strong>Features</strong></summary>
 
 ### Typing (built)
 - **Type Clipboard** — press a hotkey and Typeboard types out whatever you copied, character by character, like a real person.
@@ -23,15 +24,20 @@ It was built as a fun side project to explore macOS app development with SwiftUI
 
 Note: Type Clipboard is fully built and working. The AI features are still under active development.
 
+</details>
+
 ---
 
-## How It Works
+<details>
+<summary><strong>How It Works</strong></summary>
 
 - Built with SwiftUI and AppKit for macOS (requires macOS 26+).
 - Hotkeys via the [KeyboardShortcuts](https://github.com/sindresorhus/KeyboardShortcuts) library.
 - Local AI uses the Ollama runtime, downloaded and managed automatically by the app.
 - Cloud AI uses the Gemini API with your own key, stored in your Keychain.
 - Sandboxed, with accessibility permission required to simulate typing.
+
+</details>
 
 ---
 
@@ -56,7 +62,8 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 
 ---
 
-## Getting Started (from source)
+<details>
+<summary><strong>Getting Started (from source)</strong></summary>
 
 1. Clone the repo and open `Typeboard.xcodeproj` in Xcode.
 2. Build and run (enable the Accessibility permission when prompted).
@@ -64,6 +71,8 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 4. (Optional) Enable AI in the **AI** tab and pick a provider.
 
 To package your own DMG for sharing, run `./Scripts/build-dmg.sh` — it produces `Typeboard.dmg` on your Desktop.
+
+</details>
 
 ---
 
