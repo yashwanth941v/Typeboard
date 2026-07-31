@@ -35,12 +35,31 @@ Note: Type Clipboard is fully built and working. The AI features are still under
 
 ---
 
-## Getting Started
+## Download & Install
+
+> **Note:** Typeboard isn't on the Mac App Store and isn't signed with a paid Developer ID certificate, so macOS may show a "cannot be verified" warning the first time you open it. It's safe — that warning just means the app wasn't notarized. Here's how to get around it.
+
+1. Download `Typeboard.dmg` from the [latest release](https://github.com/yashwanth941v/Typeboard/releases/latest).
+2. Open the DMG and drag `Typeboard.app` into your **Applications** folder.
+3. First launch: **right-click** the app → **Open** → **Open** (one-time confirmation). Or run this once in Terminal:
+
+   ```zsh
+   xattr -cr /Applications/Typeboard.app
+   ```
+
+4. Enable **Accessibility** for Typeboard in System Settings when prompted — that's what lets it type for you.
+5. Set your hotkeys in the **Typing** tab.
+
+---
+
+## Getting Started (from source)
 
 1. Clone the repo and open `Typeboard.xcodeproj` in Xcode.
 2. Build and run (enable the Accessibility permission when prompted).
 3. Set your hotkeys in the **Typing** tab.
 4. (Optional) Enable AI in the **AI** tab and pick a provider.
+
+To package your own DMG for sharing, run `./Scripts/build-dmg.sh` — it produces `Typeboard.dmg` on your Desktop.
 
 ---
 

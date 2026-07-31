@@ -139,6 +139,13 @@ struct ContentView: View {
                     color: Color(red: 0.14, green: 0.14, blue: 0.14),
                     icon: .brand("GitHubLogo")
                 )
+
+                LinkRow(
+                    title: "Send Feedback",
+                    url: URL(string: "mailto:yashwanth.941v@gmail.com")!,
+                    color: .red,
+                    icon: .system("envelope.fill")
+                )
             } header: {
                 Text("Connect")
             }
