@@ -4,6 +4,7 @@ struct ContentView: View {
     @ObservedObject private var settings = AppSettings.shared
     @State private var showRemoveConfirmation = false
     @State private var isRemovingModel = false
+    @State private var showAIUnderDevelopment = false
 
     var body: some View {
         TabView {
@@ -166,16 +167,22 @@ struct ContentView: View {
     private var aiTab: some View {
         Form {
             Section {
-                Toggle(isOn: $settings.isAIEnabled) {
+                Toggle(isOn: Binding(
+                    get: { settings.isAIEnabled },
+                    set: { _ in showAIUnderDevelopment = true }
+                )) {
                     HStack(spacing: 6) {
                         Text("Enable AI")
                         BetaPill()
                     }
                 }
             } footer: {
-                Text(settings.isAIEnabled
-                     ? "AI is on. The Answer with AI shortcut is active."
-                     : "AI is off. The Answer with AI shortcut is disabled and no AI features will run.")
+                Text("AI is still under development and is disabled in this release. Coming soon.")
+            }
+            .alert("AI is still under development", isPresented: $showAIUnderDevelopment) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text("Local model downloads and cloud AI setup aren't ready yet. Typeboard v1 ships with typing features only — AI is coming in a future update.")
             }
 
             if settings.isAIEnabled {

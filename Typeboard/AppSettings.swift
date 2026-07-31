@@ -136,7 +136,7 @@ final class AppSettings: ObservableObject {
 
         isTypingEnabled = UserDefaults.standard.object(forKey: "isTypingEnabled") as? Bool ?? true
 
-        isAIEnabled = UserDefaults.standard.object(forKey: "isAIEnabled") as? Bool ?? true
+        isAIEnabled = false
     }
 
     func checkOllamaStatus() async {
