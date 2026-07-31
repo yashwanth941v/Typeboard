@@ -16,6 +16,6 @@ struct TypeboardApp: App {
             ContentView()
         }
         .windowResizability(.contentSize)
-        .defaultSize(width: 420, height: 380)
+        .defaultSize(width: 420, height: 480)
     }
 }

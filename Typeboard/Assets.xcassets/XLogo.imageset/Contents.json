@@ -1,9 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "platform" : "macos",
-      "size" : "1024x1024"
+      "filename" : "XLogo.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {

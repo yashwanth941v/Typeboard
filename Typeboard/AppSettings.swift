@@ -6,6 +6,20 @@
 import Combine
 import Foundation
 
+enum GeminiAPIKeyStatus: String {
+    case unknown
+    case valid
+    case invalid
+
+    var label: String {
+        switch self {
+        case .unknown: return ""
+        case .valid: return "✓ Key is valid"
+        case .invalid: return "✗ Invalid key"
+        }
+    }
+}
+
 enum TypingSpeed: String, CaseIterable, Identifiable {
     case instant, auto, fast, medium, slow
 
@@ -47,6 +61,47 @@ final class AppSettings: ObservableObject {
         }
     }
 
+    @Published var aiModel: String {
+        didSet {
+            UserDefaults.standard.set(aiModel, forKey: "aiModel")
+        }
+    }
+
+    @Published var aiProvider: AIProvider {
+        didSet {
+            UserDefaults.standard.set(aiProvider.rawValue, forKey: "aiProvider")
+        }
+    }
+
+    @Published var geminiCloudModel: String {
+        didSet {
+            UserDefaults.standard.set(geminiCloudModel, forKey: "geminiCloudModel")
+        }
+    }
+
+    @Published var geminiAPIKey: String {
+        didSet {
+            KeychainStore.save(geminiAPIKey, account: "geminiAPIKey")
+        }
+    }
+
+    @Published var geminiKeyStatus: GeminiAPIKeyStatus = .unknown
+
+    @Published var isOllamaRunning = false
+    @Published var downloadedModels: [String] = []
+    @Published var isDownloading = false
+    @Published var downloadProgress: Double = 0
+    @Published var downloadStatusText = ""
+
+    @Published var isAIThinking = false
+    @Published var aiStatusText = ""
+
+    @Published var isAIEnabled: Bool {
+        didSet {
+            UserDefaults.standard.set(isAIEnabled, forKey: "isAIEnabled")
+        }
+    }
+
     private init() {
         let storedSpeed = UserDefaults.standard.string(forKey: "typingSpeed") ?? ""
 
@@ -61,5 +116,84 @@ final class AppSettings: ObservableObject {
         } else {
             typingSpeed = .auto
         }
+
+        aiModel = UserDefaults.standard.string(forKey: "aiModel") ?? OllamaModel.curated[0].id
+
+        let savedKey = KeychainStore.load(account: "geminiAPIKey") ?? ""
+
+        let storedProvider = UserDefaults.standard.string(forKey: "aiProvider")
+        aiProvider = AIProvider(rawValue: storedProvider ?? "") ?? (savedKey.isEmpty ? .local : .gemini)
+
+        geminiCloudModel = UserDefaults.standard.string(forKey: "geminiCloudModel") ?? GeminiModel.all[0].id
+
+        geminiAPIKey = savedKey
+
+        isAIEnabled = UserDefaults.standard.object(forKey: "isAIEnabled") as? Bool ?? true
+    }
+
+    func checkOllamaStatus() async {
+        isOllamaRunning = await OllamaClient.checkRunning()
+        if isOllamaRunning {
+            downloadedModels = (try? await OllamaClient.listDownloadedModels()) ?? []
+        } else {
+            downloadedModels = []
+        }
+    }
+
+    func isModelDownloaded(_ name: String) -> Bool {
+        downloadedModels.contains { $0.hasPrefix(name) }
+    }
+
+    func setupAndDownload() async {
+        let model = aiModel
+        guard !isDownloading else { return }
+
+        isDownloading = true
+        downloadProgress = 0
+
+        if !OllamaManager.shared.isInstalled {
+            downloadStatusText = "Downloading Ollama…"
+            do {
+                try await OllamaManager.shared.downloadBinary { [weak self] pct in
+                    Task { @MainActor in self?.downloadProgress = pct }
+                }
+            } catch {
+                downloadStatusText = "Failed: \(error.localizedDescription)"
+                isDownloading = false
+                return
+            }
+        }
+
+        downloadStatusText = "Starting server…"
+        downloadProgress = 0.6
+        do {
+            try OllamaManager.shared.startServer()
+            try await OllamaManager.shared.waitForServer()
+        } catch {
+            downloadStatusText = "Failed: \(error.localizedDescription)"
+            isDownloading = false
+            return
+        }
+
+        downloadStatusText = "Downloading \(model)…"
+        downloadProgress = 0.7
+        do {
+            try await OllamaClient.pullModel(model) { [weak self] pct in
+                Task { @MainActor in
+                    let adjusted = 0.7 + pct * 0.3
+                    self?.downloadProgress = adjusted
+                }
+            }
+        } catch {
+            downloadStatusText = "Failed: \(error.localizedDescription)"
+            isDownloading = false
+            return
+        }
+
+        downloadStatusText = "Ready"
+        downloadProgress = 1
+        isOllamaRunning = true
+        downloadedModels = (try? await OllamaClient.listDownloadedModels()) ?? []
+        isDownloading = false
     }
 }

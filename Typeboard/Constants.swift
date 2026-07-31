@@ -9,4 +9,5 @@ import KeyboardShortcuts
 
 extension KeyboardShortcuts.Name {
     static let typeClipboard = Self("typeClipboard")
+    static let answerWithAI = Self("answerWithAI")
 }

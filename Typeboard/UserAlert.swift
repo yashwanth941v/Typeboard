@@ -13,8 +13,9 @@ enum UserAlert {
 
     @MainActor
     static func showWarning(_ message: String) {
-        if NSApp.isActive,
-           let window = NSApp.keyWindow ?? NSApp.windows.first(where: { $0.isVisible && $0.canBecomeKey }) {
+        NSApp.activate(ignoringOtherApps: true)
+
+        if let window = NSApp.keyWindow ?? NSApp.windows.first(where: { $0.isVisible && $0.canBecomeKey }) {
             window.makeKeyAndOrderFront(nil)
 
             let alert = NSAlert()
